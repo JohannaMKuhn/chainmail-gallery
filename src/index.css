@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+body {
+    font-family: Candara, sans-serif;
+}
+
