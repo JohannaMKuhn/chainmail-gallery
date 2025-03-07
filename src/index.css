@@ -2,7 +2,16 @@
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 
-body {
-    font-family: Candara, sans-serif;
-}
+/*body {*/
+/*    font-family: Candara, sans-serif;*/
+/*}*/
 
+/*body .ponomar-regular {*/
+/*    font-family: "Ponomar", system-ui;*/
+/*    font-weight: 400;*/
+/*    font-style: normal;*/
+/*}*/
+
+body {
+    font-family: Constantia;
+}
