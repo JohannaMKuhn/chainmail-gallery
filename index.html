@@ -68,14 +68,28 @@
     <form class="caret-emerald-800 grid grid-rows-[6.5rem_1fr_5rem] gap-5 p-5 md:p-20 text-white text-4xl" id="contact-form" novalidate>
         <h1 class="text-stone-800 text-6xl py-6 font-semibold self-center justify-self-center">Questions?</h1>
         <div class="px-6 grid grid-rows-6 grid-cols-1 lg:grid-rows-3 lg:grid-cols-[40%_1fr]">
-            <label for="user-name">Name</label>
-            <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" id="user-name"/>
-            <label for="user-email">Email</label>
-            <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" id="user-email"/>
-            <label for="user-message">Message</label>
-            <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" id="user-message"/>
+            <div class="website">
+                <label for="website">Website</label>
+                <input type="text" id="website" class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" name="website" tabindex="-1" autocomplete="nope"/>
+            </div>
+            <div>
+                <label for="user-name">Name</label>
+                <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" name="userName" id="user-name" placeholder="Your name"/>
+                <p id="userNameError" class="hidden mt-2 text-sm text-red-600"></p>
+            </div>
+            <div>
+                <label for="user-email">Email</label>
+                <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" name="userEmail" id="user-email" placeholder="Your email"/>
+                <p id="userEmailError" class="hidden mt-2 text-sm text-red-600"></p>
+            </div>
+            <div>
+                <label for="user-message">Message</label>
+                <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" name="userMessage" id="user-message" placeholder="Your message"/>
+                <p id="userMessageError" class="hidden mt-2 text-sm text-red-600"></p>
+            </div>
         </div>
-        <button class="w-fit px-[2rem] self-center justify-self-center h-[3.5rem] bg-stone-500 outline-2 outline-stone-600 rounded-[1rem] text-[2.25rem]" type="submit">Send</button>
+        <button type="submit" class="w-fit px-[2rem] self-center justify-self-center h-[3.5rem] bg-stone-500 outline-2 outline-stone-600 rounded-[1rem] text-[2.25rem]">Send</button>
+        <div  class="hidden p-4 my-4 text-sm rounded-lg" id="status" role="alert"></div>
     </form>
 
         <div class="grid justify-center">

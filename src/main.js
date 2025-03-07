@@ -24,15 +24,15 @@ export function contactForm() {
 //Grab form to convert it into a form-data object and add event listeners
     const form = document.getElementById('contact-form')
 
-//grab the required input fields so that we can add/remove a red border if an error occers
+//grab the required input fields so that we can add/remove a red border if an error occurs
     const nameInput = document.getElementById('user-name')
     const emailInput = document.getElementById('user-email')
     const messageInput = document.getElementById('user-message')
 
 //grab the error display elements to display error messages
-    const nameError = document.getElementById('nameError')
-    const emailError = document.getElementById('emailError')
-    const messageError = document.getElementById('messageError')
+    const nameError = document.getElementById('userNameError')
+    const emailError = document.getElementById('userEmailError')
+    const messageError = document.getElementById('userMessageError')
 
 //grab the status output element to show a success message on a successful submit or a backend error message
     const statusOutput = document.getElementById('status')
@@ -40,5 +40,14 @@ export function contactForm() {
 //define success and error classes to give user a quick visual hint on if the request was successful or not
     const successClasses = ['text-green-800', 'bg-green-50']
     const errorClasses = ['text-red-800', 'bg-red-50']
+
+//Define event listeners for what happens on submit;
+    form.addEventListener('submit', (event) => {
+        //Preventing default browser behavior, customizing behavior
+        event.preventDefault()
+
+//Create an object from the form using form data
+
+    })
 
 }
