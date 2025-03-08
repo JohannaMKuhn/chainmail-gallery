@@ -37,7 +37,7 @@ export function contactForm() {
 //grab the status output element to show a success message on a successful submit or a backend error message
     const statusOutput = document.getElementById('status')
 
-//define success and error classes to give user a quick visual hint on if the request was successful or not
+//define success and error  tailwind classes to give user a quick visual hint on if the request was successful or not
     const successClasses = ['text-green-800', 'bg-green-50']
     const errorClasses = ['text-red-800', 'bg-red-50']
 
@@ -47,7 +47,45 @@ export function contactForm() {
         event.preventDefault()
 
 //Create an object from the form using form data
+    const formDate = new FormData(form)
 
+//hide error messages and remove styling from previous submissions using array prototype
+    [nameError, emailError, messageError].forEach(errorElement => errorElement.classList.add('hidden'))
+    [nameInput, emailInput, messageInput].forEach(input => input.classList.remove('border-red-500'))
+
+//Honey Pot handling - gives bots fake sense of success & clears out form
+//if the website input is set a bot most likely filled out the form, so provide a fake success message to trick the bot into thinking it succeeded
+        if(formData.get('website') !== '') {
+            form.reset()
+            statusOutput.innerHTML = 'message sent successfully'
+            statuOutput.add(...successClasses)
+            statusOutput.remove('hidden')
+            return
+        }
+
+//Convert formData into an object so that validation can be performed
+        const values = Object.fromEntries(formData.entries())
+
+//check for zod errors related to validating inputs and provide feedback to users if an error occurred
+        const result = schema.safeParse(values)
+        if(result.success === false ) {
+            const errorsMap =  {
+                name: {inputError: nameInput, errorElement: nameError},
+                email: {inputError: emailInput, errorElement: emailError},
+                message: {inputError: messageInput, errorElement: messageError},
+            }
+        result.error.errors.forEach(error => {
+            const {errorElement, inputError} = errorsMap[error.path[0]]
+            errorElement.innerHTML = error.message
+            errorElement.classList.remove('hidden')
+            inputError.classList.add('border-red-500')
+        })
+        return
+
+        //if everything is valid submit the form
+        }
+
+        console.log('form_validated_successfully', result.data)
     })
 
 }
