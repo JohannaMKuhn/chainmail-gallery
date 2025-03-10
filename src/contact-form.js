@@ -5,17 +5,16 @@ export function contactForm() {
     const schema = z.object({
         name: z
             .string({required_error: 'Name is a required field'})
+            .min (1, {message: 'Name is a required field'})
             .max(64, {message: 'Name cannot be greater than 64 characters'}),
         email: z
             .string({required_error: 'Email is a required field'})
+            .min (1, {message: 'Email is a required field'})
             .email({message: 'Invalid email address'})
             .max(128, {message: 'Email cannot be greater than 128 characters'}),
-        subject: z
-            .string({})
-            .max(64, {message: 'Subject cannot be greater than 80 characters'})
-            .optional(),
         message: z
             .string({required_error: 'Message is a required field'})
+            .min (1, {message: 'message is a required field'})
             .max(500, {message: 'Message cannot be greater than 500 characters'})
     })
 
@@ -45,14 +44,14 @@ export function contactForm() {
         event.preventDefault()
 
 //Create an object from the form using form data
-        const formDate = new FormData(form)
+        const formData = new FormData(form)
 
 //hide error messages and remove styling from previous submissions using array prototype
-            const errorArray = [nameError, emailError, messageError]
+        const errorArray = [nameError, emailError, messageError]
+        errorArray.forEach(element => {element.classList.add('hidden')})
 
-            errorArray.forEach(element => {element.classList.add('hidden')})
-
-            const inputArray =  [nameInput, emailInput, messageInput]
+        const inputArray =  [nameInput, emailInput, messageInput]
+        inputArray.forEach(input => {input.classList.remove('border-red-500')})
 
 //Honey Pot handling - gives bots fake sense of success & clears out form
 //if the website input is set a bot most likely filled out the form, so provide a fake success message to trick the bot into thinking it succeeded
@@ -66,6 +65,9 @@ export function contactForm() {
 
 //Convert formData into an object so that validation can be performed
         const values = Object.fromEntries(formData.entries())
+
+//if email is an empty string set it to undefined
+        values.email = values.email === '' ? undefined : values.email
 
 //check for zod errors related to validating inputs and provide feedback to users if an error occurred
         const result = schema.safeParse(values)
@@ -82,9 +84,27 @@ export function contactForm() {
                 inputError.classList.add('border-red-500')
             })
             return
-
-            //if everything is valid submit the form
         }
+    //if everything is valid submit the form
+        fetch('http://localhost:4200/apis', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify(values)
+        }).then(response => response.json())
+            .then(data => {
+                statusOutput.innerHTML = data.message
+                if (data.status === 200) {
+                    statusOutput.classList.add(...successClasses)
+                    form.reset()
+                }
+                statusOutput.classList.add(...errorClasses)
+                statusOutput.classList.remove('hidden')
+            }).catch(error => {
+                console.error(error)
+            statusOutput.innerHTML  = 'Internal server error try again later'
+            statusOutput.classList.add(...errorClasses)
+            statusOutput.classList.remove('hidden')
+        })
 
         console.log('form_validated_successfully', result.data)
     })
