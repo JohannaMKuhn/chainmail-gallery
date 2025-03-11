@@ -25,7 +25,7 @@ export function contactForm() {
     const nameInput = document.getElementById('user-name')
     const emailInput = document.getElementById('user-email')
     const messageInput = document.getElementById('user-message')
-
+    console.log(nameInput)
 //grab the error display elements to display error messages
     const nameError = document.getElementById('userNameError')
     const emailError = document.getElementById('userEmailError')
@@ -68,7 +68,7 @@ export function contactForm() {
 
 //if email is an empty string set it to undefined
         values.email = values.email === '' ? undefined : values.email
-
+        console.log(values)
 //check for zod errors related to validating inputs and provide feedback to users if an error occurred
         const result = schema.safeParse(values)
         if(result.success === false ) {

@@ -43,18 +43,45 @@
 
 
 <section>
-    <div id="gallery-link" class="grid grid-cols-1 md:grid-cols-3 gap-6 p-16 container mx-auto">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='/heavy-4-in-1-wave.jpg' alt="Blue Agate">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600600" src='/4-in-1-pyramid.jpg' alt="4 in 1 Pyramid">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='/box-weave.jpg' alt="Box Cord">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='/armillary.jpg' alt="Armillary Chain">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='/harlequin.jpg' alt="Harlequin">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='/byzantine.jpg' alt="Byzantine Chain">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='/sweat-pea.jpg' alt="Sweat Pea Chain">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='/light-4-in-1.jpg' alt="Light 4 in 1 Chain">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='/ruby-armillary.jpg' alt="Ruby Armillary Chain">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='/armillary-droplets.jpg' alt="Ruby Armillary Droplets">
-        <img class="hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem] border-1 border-neutral-600" src='droplet-stacks.jpg' alt="Droplet Stacks">
+    <div id="gallery-link" class="grid justify-items-center items-center grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-20 px-[10rem] py-[4rem]">
+
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/heavy-4-in-1-wave.jpg' alt="Blue Agate">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900  rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/harlequin.jpg' alt="Harlequin">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/ruby-armillary.jpg' alt="Ruby Armillary Chain">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/armillary.jpg' alt="Armillary Chain">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/box-weave.jpg' alt="Box Chain">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/byzantine.jpg' alt="Byzantine Chain">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/sweat-pea.jpg' alt="Sweat Pea Chain">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/light-4-in-1.jpg' alt="Light 4 in 1 Chain">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/4-in-1-pyramid.jpg' alt="4 in 1 Dangles">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='/armillary-droplets.jpg' alt="Ruby Armillary Droplets">
+        </div>
+        <div class="relative overflow-hidden w-[25rem] h-[20rem] hover:shadow-lg hover:shadow-stone-900 rounded-[1.50rem]">
+        <img class="absolute size-full object-cover object-center" src='droplet-stacks.jpg' alt="Droplet Stacks">
+        </div>
+
+
+
+
     </div>
 </section>
 
@@ -82,17 +109,17 @@
             </div>
             <div>
                 <label for="user-name">Name</label>
-                <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" name="userName" id="user-name" placeholder="Your name"/>
+                <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" name="user-name" id="user-name" placeholder="Your name"/>
                 <p id="userNameError" class="hidden mt-2 text-sm text-red-600"></p>
             </div>
             <div>
                 <label for="user-email">Email</label>
-                <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" name="userEmail" id="user-email" placeholder="Your email"/>
+                <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" name="user-email" id="user-email" placeholder="Your email"/>
                 <p id="userEmailError" class="hidden mt-2 text-sm text-red-600"></p>
             </div>
             <div>
                 <label for="user-message">Message</label>
-                <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" name="userMessage" id="user-message" placeholder="Your message"/>
+                <input class="bg-stone-300 text-stone-900 px-6 rounded-[.5rem]" type="text" name="user-message" id="user-message" placeholder="Your message"/>
                 <p id="userMessageError" class="hidden mt-2 text-sm text-red-600"></p>
             </div>
         </div>
