@@ -3,16 +3,16 @@ import {z} from 'zod'
 //Validation (frontend) rules in place.
 export function contactForm() {
     const schema = z.object({
-        name: z
+        "user-name": z
             .string({required_error: 'Name is a required field'})
             .min (1, {message: 'Name is a required field'})
             .max(64, {message: 'Name cannot be greater than 64 characters'}),
-        email: z
+        "user-email": z
             .string({required_error: 'Email is a required field'})
             .min (1, {message: 'Email is a required field'})
             .email({message: 'Invalid email address'})
             .max(128, {message: 'Email cannot be greater than 128 characters'}),
-        message: z
+        "user-message": z
             .string({required_error: 'Message is a required field'})
             .min (1, {message: 'message is a required field'})
             .max(500, {message: 'Message cannot be greater than 500 characters'})
@@ -27,7 +27,7 @@ export function contactForm() {
     const messageInput = document.getElementById('user-message')
     console.log(nameInput)
 //grab the error display elements to display error messages
-    const nameError = document.getElementById('userNameError')
+    const userNameError = document.getElementById('userNameError')
     const emailError = document.getElementById('userEmailError')
     const messageError = document.getElementById('userMessageError')
 
@@ -47,7 +47,7 @@ export function contactForm() {
         const formData = new FormData(form)
 
 //hide error messages and remove styling from previous submissions using array prototype
-        const errorArray = [nameError, emailError, messageError]
+        const errorArray = [userNameError, userEmailError, userMessageError]
         errorArray.forEach(element => {element.classList.add('hidden')})
 
         const inputArray =  [nameInput, emailInput, messageInput]
@@ -57,7 +57,7 @@ export function contactForm() {
 //if the website input is set a bot most likely filled out the form, so provide a fake success message to trick the bot into thinking it succeeded
         if(formData.get('website') !== '') {
             form.reset()
-            statusOutput.innerHTML = 'message sent successfully'
+            statusOutput.innerHTML = 'Message sent successfully'
             statusOutput.add(...successClasses)
             statusOutput.remove('hidden')
             return
@@ -73,9 +73,9 @@ export function contactForm() {
         const result = schema.safeParse(values)
         if(result.success === false ) {
             const errorsMap =  {
-                name: {inputError: nameInput, errorElement: nameError},
-                email: {inputError: emailInput, errorElement: emailError},
-                message: {inputError: messageInput, errorElement: messageError},
+                name: {inputError: nameInput, errorElement: userNameError},
+                email: {inputError: emailInput, errorElement: userEmailError},
+                message: {inputError: messageInput, errorElement: userMessageError},
             }
             result.error.errors.forEach(error => {
                 const {errorElement, inputError} = errorsMap[error.path[0]]
@@ -93,11 +93,14 @@ export function contactForm() {
         }).then(response => response.json())
             .then(data => {
                 statusOutput.innerHTML = data.message
+
                 if (data.status === 200) {
                     statusOutput.classList.add(...successClasses)
                     form.reset()
+                } else {
+                    statusOutput.classList.add(...errorClasses)
                 }
-                statusOutput.classList.add(...errorClasses)
+
                 statusOutput.classList.remove('hidden')
             }).catch(error => {
                 console.error(error)

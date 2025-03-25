@@ -4,6 +4,7 @@ import { z } from 'zod'
 import formData from 'form-data'
 import Mailgun from 'mailgun.js'
 import 'dotenv/config'
+import cors from 'cors'
 
 const mailgun = new Mailgun(formData)
 const mailgunClient = mailgun.client({username:'api', key:process.env.MAILGUN_API_KEY})
@@ -20,28 +21,28 @@ app.use(morgan('dev'))
 // setup express to use json responses and parse json requests
 app.use(express.json())
 
+//remove for production
+app.use(cors())
+
 // Created a router so that we can have custom paths for different resources in our application
 const indexRoute = express.Router()
 
 const firstHandler = async (request, response, next) => {
+    response.header('Access-Control-Allow-Origin', '*')
     const schema = z.object({
-        name: z
-            .string({ required_error: 'name is a required field' })
-            .min(1, {message: 'name is a required field'})
+        'user-name': z
+            .string({ required_error: 'Name is a required field' })
+            .min(1, {message: 'Name is a required field'})
             .max(64, { message: 'Name cannot be greater than 64 characters' }),
-        email: z
-            .string({ required_error: 'email is a required field' })
-            .min(1, {message: 'email is a required field'})
-            .email({ message: 'invalid email address' })
-            .max(128, { message: 'email cannot be greater than 128 characters' }),
-        subject: z
-            .string()
-            .max(64, { message: 'subject cannot be greater than 64 characters' })
-            .optional(),
-        message: z
-            .string({ required_error: 'message is a  required field' })
-            .min(1, {message: 'message is a  required field' })
-            .max(500, { message: 'message cannot be greater than 500 characters' })
+        'user-email': z
+            .string({ required_error: 'Email is a required field' })
+            .min(1, {message: 'Email is a required field'})
+            .email({ message: 'Invalid email address' })
+            .max(128, { message: 'Email cannot be greater than 128 characters' }),
+        'user-message': z
+            .string({ required_error: 'Message is a  required field' })
+            .min(1, {message: 'Message is a  required field' })
+            .max(500, { message: 'Message cannot be greater than 500 characters' })
     })
 
     const result = schema.safeParse(request.body)
@@ -51,27 +52,27 @@ const firstHandler = async (request, response, next) => {
     }
 
     if(request.body.website !== "") {
-        return response.json({status:201, message: 'email sent successfully'})
+        return response.json({status:201, message: 'Email sent successfully'})
     }
 
     try{
-        const subject = result.data.subject ?? undefined
+
         const mailgunMessage = {
-            from: `${result.data.name} <postmaster@${process.env.MAILGUN_DOMAIN}>`,
-            subject,
+            from: `${result.data['user-name']} <postmaster@${process.env.MAILGUN_DOMAIN}>`,
+            subject: 'Message from personal website',
             text: `
-      from ${result.data.email}
+      from ${result.data["user-email"]}
       
-      ${result.data.message}`,
+      ${result.data["user-message"]}`,
             to: process.env.MAILGUN_RECIPIENT
         }
 
         await mailgunClient.messages.create(process.env.MAILGUN_DOMAIN, mailgunMessage)
-        return response.json({status:200, message: "email sent successfully"})
+        return response.json({status:200, message: "Email sent successfully"})
 
     } catch (error) {
         console.error(error)
-        return response.json({status:500, message: 'internal server error try again later'})
+        return response.json({status:500, message: 'Internal server error, try again later.'})
 
     }
 
